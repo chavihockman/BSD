@@ -1,0 +1,28 @@
+body {
+  margin: 0;
+  font-family: -apple-system, "Segoe UI", Arial, sans-serif;
+  background: #f2f2f7;
+}
+
+
+.app {
+  top: 500px;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.documents-area {
+  flex: 1;
+  display: grid;
+  margin-bottom: 0px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-auto-rows: minmax(140px, 1fr);
+  gap: 12px;
+  padding: 12px;
+  overflow: auto;
+} 
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+}

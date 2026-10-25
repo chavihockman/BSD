@@ -1,0 +1,148 @@
+.editor-panel {
+  background: #d1d3d9;
+  padding: 6px 6px 8px;
+  border-top: 1px solid #b0bedf;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+
+/* שורה עליונה: פעולות מתקדמות + קבצים */
+.top-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 6px 14px;
+  margin-bottom: 6px;
+}
+
+
+/* שורת "גלולה" עם רקע צבוע: שפות וסגנון */
+.chip-row {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 6px;
+}
+
+
+.chip-row .toolbar {
+  padding: 6px 10px;
+  background: #e4e5e9;
+  border-radius: 10px;
+}
+
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+
+.toolbar button,
+.toolbar select,
+.toolbar input {
+  height: 30px;
+  padding: 0 10px;
+  border: none;
+  border-radius: 6px;
+  background: #fff;
+  color: #000;
+  font-family: -apple-system, "Segoe UI", Arial, sans-serif;
+  font-size: 13px;
+  box-shadow: 0 1px 0 #898a8d;
+}
+
+
+.toolbar input { width: 90px; }
+.toolbar button { cursor: pointer; }
+.toolbar button:active { background: #adb3bc; }
+.toolbar button:disabled { opacity: 0.4; cursor: default; }
+
+
+.toolbar span { font-size: 13px; color: #333; }
+
+
+/* מתג "כל הטקסט / מכאן והלאה" */
+.toolbar .toggle {
+  background: #adb3bc;
+  font-weight: 600;
+}
+
+
+.toolbar .toggle-on {
+  background: #007aff;
+  color: #fff;
+}
+
+
+/* המקלדת */
+.keyboard {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  max-width: 600px;
+  margin: 0 auto;
+  direction: rtl;
+}
+
+
+.key {
+  width: 46px;
+  height: 44px;
+  border: none;
+  border-radius: 6px;
+  background: #fff;
+  color: #000;
+  font-family: -apple-system, "Segoe UI", Arial, sans-serif;
+  font-size: 22px;
+  box-shadow: 0 1px 0 #898a8d;
+  cursor: pointer;
+}
+
+
+.key:active { background: #adb3bc; }
+
+
+/* מקשי פונקציה (clear, מחיקה): אפור כהה כמו באייפון */
+.key-function {
+  width: 70px;
+  background: #adb3bc;
+  font-size: 16px;
+}
+
+
+/* שורה תחתונה: clear , רווח . מחיקה */
+.keyboard-bottom-row {
+  display: flex;
+  gap: 6px;
+  width: 100%;
+  justify-content: center;
+}
+
+
+.key-space {
+  flex: 1;
+  max-width: 220px;
+  font-size: 16px;
+  height: 44px;
+
+}
+
+.file-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+
+.file-info {
+  display: flex;
+  gap: 12px;
+  font-size: 12px;
+  color: #333;
+}
