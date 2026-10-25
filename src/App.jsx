@@ -22,17 +22,40 @@ function App() {
   const history = document.history;
   const currentFileName = document.fileName
 
-  function generateHistoryArray() {
-    return [...history, { characters, textStyle, fileName: currentFileName }];
-  }
-
+  //Document Management
   function createEmptyDocument() {
     return { characters: [], history: [], fileName: "" };
   }
 
-  function clearHighlight() {
-    setHighlightedCharacter("");
+  function updateDocument(changes) {
+    setDocuments(
+      documents.map((doc, index) =>
+        index === activeIndex ? { ...doc, ...changes } : doc
+      )
+    );
   }
+
+  function focusDocument(index) {
+    clearHighlight();
+    setActiveIndex(index);
+  }
+
+
+  function closeDocument(index) {
+    if (documents.length === 1) return;
+    offerToSaveDocument(documents[index]);
+    clearHighlight();
+    setDocuments(documents.filter((doc, docIndex) => docIndex !== index));
+    setActiveIndex(getActiveIndexAfterClose(index));
+  }
+
+  function getActiveIndexAfterClose(closedIndex) {
+    if (closedIndex < activeIndex) return activeIndex - 1;
+    if (closedIndex === activeIndex) return Math.max(0, closedIndex - 1);
+    return activeIndex;
+  }
+
+  //Text Editing & Styling
 
   function addCharacter(character) {
     updateDocument({
@@ -72,19 +95,6 @@ function App() {
     }
   }
 
-
-  function undoLastAction() {
-    if (history.length === 0) return;
-    clearHighlight();
-    const previousState = history[history.length - 1];
-    setTextStyle(previousState.textStyle);
-    updateDocument({
-      characters: previousState.characters,
-      fileName: previousState.fileName,
-      history: history.slice(0, -1),
-    });
-  }
-
   function replaceCharacter(characterToFind, replacement) {
     if (characterToFind === "") return;
     clearHighlight();
@@ -98,10 +108,15 @@ function App() {
     });
   }
 
+  function clearHighlight() {
+    setHighlightedCharacter("");
+  }
+
+  //File Management & Saving
+
   function isNewFile() {
     return currentFileName === "";
   }
-
 
   function saveCurrentFile() {
     saveFile(currentUser, currentFileName, characters);
@@ -138,19 +153,6 @@ function App() {
     setActiveIndex(documents.length);
   }
 
-  function updateDocument(changes) {
-    setDocuments(
-      documents.map((doc, index) =>
-        index === activeIndex ? { ...doc, ...changes } : doc
-      )
-    );
-  }
-
-  function focusDocument(index) {
-    clearHighlight();
-    setActiveIndex(index);
-  }
-
   function offerToSaveDocument(doc) {
     if (doc.characters.length === 0 || doc.fileName !== "") return;
     if (!window.confirm("לשמור את הטקסט לפני הסגירה?")) return;
@@ -160,20 +162,25 @@ function App() {
     }
   }
 
-  function closeDocument(index) {
-    if (documents.length === 1) return;
-    offerToSaveDocument(documents[index]);
+  //History & Undo
+
+  function generateHistoryArray() {
+    return [...history, { characters, textStyle, fileName: currentFileName }];
+  }
+
+  function undoLastAction() {
+    if (history.length === 0) return;
     clearHighlight();
-    setDocuments(documents.filter((doc, docIndex) => docIndex !== index));
-    setActiveIndex(getActiveIndexAfterClose(index));
+    const previousState = history[history.length - 1];
+    setTextStyle(previousState.textStyle);
+    updateDocument({
+      characters: previousState.characters,
+      fileName: previousState.fileName,
+      history: history.slice(0, -1),
+    });
   }
 
-  function getActiveIndexAfterClose(closedIndex) {
-    if (closedIndex < activeIndex) return activeIndex - 1;
-    if (closedIndex === activeIndex) return Math.max(0, closedIndex - 1);
-    return activeIndex;
-  }
-
+  //User Management
   function logoutUser() {
     documents.forEach(offerToSaveDocument);
     clearHighlight();
