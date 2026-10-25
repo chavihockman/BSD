@@ -7,7 +7,7 @@ import EditorPanel from "./components/EditorPanel/EditorPanel";
 import { saveFile, loadFile, fileExists, deleteFile } from "./fileStorage";
 import LoginScreen from "./components/LoginScreen/LoginScreen";
 
-const DEFAULT_TEXT_STYLE = { color: "black", fontSize: 24, fontFamily: "Courier" };
+const DEFAULT_TEXT_STYLE = { color: "black", fontSize: 24, fontFamily: "Arial" };
 
 function App() {
   const [currentUser, setCurrentUser] = useState("");
@@ -22,7 +22,7 @@ function App() {
   const history = document.history;
   const currentFileName = document.fileName
 
-  function getHistoryWithCurrentState() {
+  function generateHistoryArray() {
     return [...history, { characters, textStyle, fileName: currentFileName }];
   }
 
@@ -36,14 +36,14 @@ function App() {
 
   function addCharacter(character) {
     updateDocument({
-      history: getHistoryWithCurrentState(),
+      history: generateHistoryArray(),
       characters: [...characters, { character, style: textStyle }],
     });
   }
 
   function deleteLastCharacter() {
     updateDocument({
-      history: getHistoryWithCurrentState(),
+      history: generateHistoryArray(),
       characters: characters.slice(0, -1),
     });
   }
@@ -51,7 +51,7 @@ function App() {
   function deleteAllText() {
     clearHighlight();
     updateDocument({
-      history: getHistoryWithCurrentState(),
+      history: generateHistoryArray(),
       characters: [],
     });
   }
@@ -61,14 +61,14 @@ function App() {
     setTextStyle({ ...textStyle, [styleProperty]: value });
     if (applyToAll) {
       updateDocument({
-        history: getHistoryWithCurrentState(),
+        history: generateHistoryArray(),
         characters: characters.map((item) => ({
           ...item,
           style: { ...item.style, [styleProperty]: value },
         })),
       });
     } else {
-      updateDocument({ history: getHistoryWithCurrentState() });
+      updateDocument({ history: generateHistoryArray() });
     }
   }
 
@@ -89,7 +89,7 @@ function App() {
     if (characterToFind === "") return;
     clearHighlight();
     updateDocument({
-      history: getHistoryWithCurrentState(),
+      history: generateHistoryArray(),
       characters: characters.map((item) =>
         item.character === characterToFind
           ? { ...item, character: replacement }
@@ -126,7 +126,7 @@ function App() {
     }
     clearHighlight();
     updateDocument({
-      history: getHistoryWithCurrentState(),
+      history: generateHistoryArray(),
       characters: loadedCharacters,
       fileName: fileName,
     });

@@ -7,13 +7,6 @@ import StyleControls from "./StyleControls";
 import AdvancedActions from "./AdvancedActions";
 import FileActions from "./FileActions"
 
-const keyboardLayouts = {
-  hebrew: ["א", "ב", "ג", "ד", "ה", "ו", "ז", "ח", "ט", "י", "כ", "ל", "מ", "נ", "ס", "ע", "פ", "צ", "ק", "ר", "ש", "ת", "ך", "ם", "ן", "ף", "ץ"],
-  english: ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"],
-  symbols: ["'", "?", "-", "!", "@", "#", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", ")", "("],
-  emojis: ["😂", "🤣", "🤪", "😜", "😝", "😛", "😆", "😅", "🙃", "🤭", "🥸","😁", "😄", "😹", "🥴", "🤡", "🤠", "🫠", "🫢", "🫣", "😎", "🤓", "🤯", "😏", "😬"]
-};
-
 function EditorPanel({ onCharacterClick, onDeleteCharacter, onDeleteAll, onStyleChange,
   onUndo, applyToAll, onApplyToAllChange, onReplace, onSearch, onOpen, onSave, onSaveAs, onNew, currentFileName, onLogout, currentUser }) {
   const [language, setLanguage] = useState("hebrew");
@@ -21,11 +14,12 @@ function EditorPanel({ onCharacterClick, onDeleteCharacter, onDeleteAll, onStyle
   return (
     <div className="editor-panel">
       <div className="top-row">
-        <AdvancedActions
+        <AdvancedActions 
+          className="advanced-actions"
           onUndo={onUndo}
           onReplace={onReplace}
           onSearch={onSearch} />
-                  <FileActions
+       <FileActions
           onSave={onSave}
           onOpen={onOpen}
           onSaveAs={onSaveAs}
@@ -45,8 +39,8 @@ function EditorPanel({ onCharacterClick, onDeleteCharacter, onDeleteAll, onStyle
             <div className="chip-row">
         <LanguageSwitcher onLanguageChange={setLanguage} />
       </div>
-              <Keyboard
-          characters={keyboardLayouts[language]}
+          <Keyboard
+          language={language}
           onCharacterClick={onCharacterClick}
           onDeleteCharacter={onDeleteCharacter}
           onDeleteAll={onDeleteAll}
