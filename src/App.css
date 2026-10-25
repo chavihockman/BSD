@@ -8,7 +8,7 @@ body {
 .app {
   top: 500px;
   flex-direction: column;
-  height: 100vh;
+  display: flex;
 }
 
 .documents-area {
@@ -17,9 +17,8 @@ body {
   margin-bottom: 0px;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   grid-auto-rows: minmax(140px, 1fr);
-  gap: 12px;
+  gap: 7px;
   padding: 12px;
-  overflow: auto;
 } 
 
 html, body, #root {

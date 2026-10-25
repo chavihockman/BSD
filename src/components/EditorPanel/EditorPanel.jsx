@@ -2,7 +2,6 @@
 import { useState } from "react";
 import "./EditorPanel.css"
 import Keyboard from "./Keyboard";
-import DeleteActions from "./DeleteActions";
 import LanguageSwitcher from "./LanguageSwitcher";
 import StyleControls from "./StyleControls";
 import AdvancedActions from "./AdvancedActions";

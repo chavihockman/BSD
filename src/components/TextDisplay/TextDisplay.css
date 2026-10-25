@@ -8,8 +8,9 @@
   white-space: pre-wrap;
   overflow: auto;
   cursor: pointer;
-  margin-left: 5px;
-  margin-right: 5px;
+  margin: 0 auto;
+  width: 70%;
+  height: 250px;
 }
 
 
